@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Protected Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login" style="text-align:center; margin-top:120px;">
+  <h2>Введите пароль</h2>
+  <input type="password" id="pass">
+  <button onclick="check()">Войти</button>
+  <p id="err" style="color:red;"></p>
+</div>
+
+<!-- CHAT (твой старый интерфейс) -->
+<div id="app" style="display:none;">
+  <div class="topbar">Переписка</div>
+  <div id="chat"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+<script>
+  const PASSWORD = "13";
+
+  function check() {
+    const val = document.getElementById("pass").value;
+
+    if (val === PASSWORD) {
+      localStorage.setItem("auth", "ok");
+      showApp();
+    } else {
+      document.getElementById("err").innerText = "Неверный пароль";
+    }
+  }
+
+  function showApp() {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  }
+
+  // авто вход
+  if (localStorage.getItem("auth") === "ok") {
+    showApp();
+  }
+</script>
+
+</body>
+</html>
